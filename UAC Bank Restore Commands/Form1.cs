@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+* :InMySight:
+* 
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,7 +22,6 @@ namespace UAC_Bank_Restore_Commands
         {
             InitializeComponent();
             KeyboardHook hook = new KeyboardHook((int)KeyboardHook.Modifiers.None, Keys.F1, this);
-
             hook.Register(); // registering globally that A will call a method
         }
         private void Form1_Load(object sender, EventArgs e)
