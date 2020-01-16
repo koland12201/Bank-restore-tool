@@ -1,6 +1,14 @@
-﻿namespace UAC_Bank_Restore_Commands
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+namespace UAC_Bank_Restore_Commands
 {
-    public class KeyboardManager
+    public class Manager
     {
         public const int INPUT_KEYBOARD = 1;
         public const int KEYEVENTF_KEYUP = 0x0002;
