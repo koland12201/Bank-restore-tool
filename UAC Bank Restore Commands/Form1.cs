@@ -149,7 +149,7 @@ namespace UAC_Bank_Restore_Commands
             Table[15] = "NavyBlue";
             Table[16] = "ABU";
             Table[17] = "Snow";
-            Table[18] = "Rock Avalanche";
+            Table[18] = "RockAvalanche";
             Table[19] = "Gold";
             Table[20] = "Rain";
             Table[21] = "Cyber";
