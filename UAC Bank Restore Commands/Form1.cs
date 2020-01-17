@@ -1,6 +1,9 @@
 ﻿/*
+* bank restore form 
 * :InMySight:
 * 
+* by koland
+* date 16/1/20
 */
 using System;
 using System.Collections.Generic;
@@ -16,7 +19,6 @@ namespace UAC_Bank_Restore_Commands
 {
     public partial class Form1 : Form
     {
-        AutoItX3Lib.IAutoItX3 key = new AutoItX3Lib.AutoItX3();
         public delegate void KeyEventHandler(object sender, KeyEventArgs e);
         public Form1()
         {
@@ -33,25 +35,25 @@ namespace UAC_Bank_Restore_Commands
             if (m.Msg == 0x0312)//matched event
             {
                 //XP
-                key.Send("{Enter}Bank setxp " + textBox_playerNo.Text + " 1 " + textBox_EnlistXP.Text + "{Enter}");      //enlisted xp
-                key.Send("{Enter}Bank setxp " + textBox_playerNo.Text + " 2 " + textBox_WOXP.Text + "{Enter}");          //CO xp
-                key.Send("{Enter}Bank setxp " + textBox_playerNo.Text + " 3 " + textBox_COXP.Text + "{Enter}");          //WO xp
+                String2Command("/bank setxp " + textBox_playerNo.Text + " 1 " + textBox_EnlistXP.Text + "/");      //enlisted xp
+                String2Command("/bank setxp " + textBox_playerNo.Text + " 2 " + textBox_WOXP.Text + "/");          //CO xp
+                String2Command("/bank setxp " + textBox_playerNo.Text + " 3 " + textBox_COXP.Text + "/");          //WO xp
 
                 //Set Records
-                key.Send("{Enter}Bank setgames " + textBox_playerNo.Text + " " + textBox_GamesSaved.Text + "{Enter}");   //saved games
-                key.Send("{Enter}Bank setrevs " + textBox_playerNo.Text + " " + textBox_Revives.Text + "{Enter}");       //revives
+                String2Command("/bank setgames " + textBox_playerNo.Text + " " + textBox_GamesSaved.Text + "/");   //saved games
+                String2Command("/bank setrevs " + textBox_playerNo.Text + " " + textBox_Revives.Text + "/");       //revives
 
                 //Games won
-                key.Send("{Enter}Bank setwon " + textBox_playerNo.Text + " 1 " + textBox_Recruit.Text + "{Enter}");      //recruit
-                key.Send("{Enter}Bank setwon " + textBox_playerNo.Text + " 2 " + textBox_Normal.Text + "{Enter}");       //normal
-                key.Send("{Enter}Bank setwon " + textBox_playerNo.Text + " 3 " + textBox_Hard.Text + "{Enter}");         //hard
-                key.Send("{Enter}Bank setwon " + textBox_playerNo.Text + " 4 " + textBox_Insane.Text + "{Enter}");       //insane
-                key.Send("{Enter}Bank setwon " + textBox_playerNo.Text + " 5 " + textBox_Nightmare.Text + "{Enter}");    //nm
-                key.Send("{Enter}Bank setwon " + textBox_playerNo.Text + " 11 " + textBox_PMCStory.Text + "{Enter}");    //pmc story
+                String2Command("/bank setwon " + textBox_playerNo.Text + " 1 " + textBox_Recruit.Text + "/");      //recruit
+                String2Command("/bank setwon " + textBox_playerNo.Text + " 2 " + textBox_Normal.Text + "/");       //normal
+                String2Command("/bank setwon " + textBox_playerNo.Text + " 3 " + textBox_Hard.Text + "/");         //hard
+                String2Command("/bank setwon " + textBox_playerNo.Text + " 4 " + textBox_Insane.Text + "/");       //insane
+                String2Command("/bank setwon " + textBox_playerNo.Text + " 5 " + textBox_Nightmare.Text + "/");    //nm
+                String2Command("/bank setwon " + textBox_playerNo.Text + " 11 " + textBox_PMCStory.Text + "/");    //pmc story
 
-                key.Send("{Enter}Bank setwon " + textBox_playerNo.Text + " 7 " + textBox_Survival.Text + "{Enter}");     //surv
-                key.Send("{Enter}Bank setwon " + textBox_playerNo.Text + " 8 " + textBox_PMCSurvival.Text + "{Enter}");  //PMC surv
-                key.Send("{Enter}Bank setwon " + textBox_playerNo.Text + " 9 " + textBox_BossMode.Text + "{Enter}");     //BM
+                String2Command("/bank setwon " + textBox_playerNo.Text + " 7 " + textBox_Survival.Text + "/");     //surv
+                String2Command("/bank setwon " + textBox_playerNo.Text + " 8 " + textBox_PMCSurvival.Text + "/");  //PMC surv
+                String2Command("/bank setwon " + textBox_playerNo.Text + " 9 " + textBox_BossMode.Text + "/");     //BM
 
                 //SI
                 if (richTextBox_SIs.Text != "")
@@ -75,7 +77,6 @@ namespace UAC_Bank_Restore_Commands
                 }
             }
             base.WndProc(ref m);
-
         }
 
         void PrintSIs(string SIsText)
@@ -87,9 +88,9 @@ namespace UAC_Bank_Restore_Commands
                 //scan for matched Sis
                 for (int i2 = 1; i2 < Table.Length; i2++)
                 {
-                    if (Parsed[i] == Table[i2])
+                    if (Parsed[i].ToUpper() == Table[i2])
                     {
-                        key.Send("{Enter}Bank addsi " + textBox_playerNo.Text + " " + i2 + "{Enter}");
+                        String2Command("/bank addsi " + textBox_playerNo.Text + " " + i2 + "/");
                     }
                 }
             }
@@ -104,9 +105,9 @@ namespace UAC_Bank_Restore_Commands
                 //scan for matched camo
                 for (int i2 = 1; i2 < Table.Length; i2++)
                 {
-                    if(Parsed[i] == Table[i2])
+                    if(Parsed[i].ToLower() == Table[i2].ToLower())
                     {
-                        key.Send("{Enter}Bank addcamo " + textBox_playerNo.Text + " " + i2 + "{Enter}");
+                        String2Command("/bank addcamo " + textBox_playerNo.Text + " " + i2 + "/");
                     }
                 }
             }
@@ -121,9 +122,9 @@ namespace UAC_Bank_Restore_Commands
                 //scan for matched camo
                 for (int i2 = 1; i2 < Table.Length; i2++)
                 {
-                    if (Parsed[i] == Table[i2])
+                    if (Parsed[i].ToLower() == Table[i2].ToLower())
                     {
-                        key.Send("{Enter}Bank adddecal " + textBox_playerNo.Text + " " + (i2-1) + "{Enter}");   //decal has offset of 1 :(
+                        String2Command("/bank adddecal " + textBox_playerNo.Text + " " + (i2-1) + "/");   //decal has offset of 1 :(
                     }
                 }
             }
@@ -155,10 +156,10 @@ namespace UAC_Bank_Restore_Commands
             Table[22] = "DesertStorm";
             Table[23] = "Frost";
             Table[24] = "BetaTester";
-            Table[25] = "SnowRA";
+            Table[25] = "SnowRockAvalanche";
             Table[26] = "Specter";
             Table[27] = "BDU";
-            Table[28] = "Red Steel";
+            Table[28] = "RedSteel";
             Table[29] = "Party";
             Table[30] = "Galactic";
             Table[31] = "Blood";
@@ -176,7 +177,7 @@ namespace UAC_Bank_Restore_Commands
             Table[43] = "Sparkle";
             Table[44] = "Emerald";
             Table[45] = "ZES";
-            Table[46] = "Bio";
+            Table[46] = "BIO";
             Table[47] = "Holiday";
             Table[48] = "UrbanSnow";
             Table[49] = "RNJesus";
@@ -265,7 +266,7 @@ namespace UAC_Bank_Restore_Commands
             Table[27] = "Master";
             Table[28] = "GrandMaster";
             Table[29] = "Galactic";
-            Table[30] = "Biohazard";
+            Table[30] = "Bio-hazard";
             Table[31] = "GreenDiamond";
             Table[32] = "LionHeart";
             Table[33] = "Serpent";
@@ -284,6 +285,56 @@ namespace UAC_Bank_Restore_Commands
             Table[46] = "US/CanadaFlag";
             Table[47] = "SyL";
             return Table;
+        }
+        void String2Command(String command)
+        {
+            char[] char_arry = command.ToCharArray();
+            for(int i=0;i<char_arry.Length;i++)
+            {
+                switch(char_arry[i])
+                {
+                    case 'a': Manager.PressKey(Keys.A); break;
+                    case 'b': Manager.PressKey(Keys.B); break;
+                    case 'c': Manager.PressKey(Keys.C); break;
+                    case 'd': Manager.PressKey(Keys.D); break;
+                    case 'e': Manager.PressKey(Keys.E); break;
+                    case 'f': Manager.PressKey(Keys.F); break;
+                    case 'g': Manager.PressKey(Keys.G); break;
+                    case 'h': Manager.PressKey(Keys.H); break;
+                    case 'i': Manager.PressKey(Keys.I); break;
+                    case 'j': Manager.PressKey(Keys.J); break;
+                    case 'k': Manager.PressKey(Keys.K); break;
+                    case 'l': Manager.PressKey(Keys.L); break;
+                    case 'm': Manager.PressKey(Keys.M); break;
+                    case 'n': Manager.PressKey(Keys.N); break;
+                    case 'o': Manager.PressKey(Keys.O); break;
+                    case 'p': Manager.PressKey(Keys.P); break;
+                    case 'q': Manager.PressKey(Keys.Q); break;
+                    case 'r': Manager.PressKey(Keys.R); break;
+                    case 's': Manager.PressKey(Keys.S); break;
+                    case 't': Manager.PressKey(Keys.T); break;
+                    case 'u': Manager.PressKey(Keys.U); break;
+                    case 'v': Manager.PressKey(Keys.V); break;
+                    case 'w': Manager.PressKey(Keys.W); break;
+                    case 'x': Manager.PressKey(Keys.X); break;
+                    case 'y': Manager.PressKey(Keys.Y); break;
+                    case 'z': Manager.PressKey(Keys.Z); break;
+
+                    case '0': Manager.PressKey(Keys.D0); break;
+                    case '1': Manager.PressKey(Keys.D1); break;
+                    case '2': Manager.PressKey(Keys.D2); break;
+                    case '3': Manager.PressKey(Keys.D3); break;
+                    case '4': Manager.PressKey(Keys.D4); break;
+                    case '5': Manager.PressKey(Keys.D5); break;
+                    case '6': Manager.PressKey(Keys.D6); break;
+                    case '7': Manager.PressKey(Keys.D7); break;
+                    case '8': Manager.PressKey(Keys.D8); break;
+                    case '9': Manager.PressKey(Keys.D9); break;
+
+                    case ' ': Manager.PressKey(Keys.Space); break;
+                    case '/': Manager.PressKey(Keys.Enter); break;
+                }
+            }
         }
     }
 }
